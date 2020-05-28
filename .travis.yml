@@ -1,12 +1,13 @@
 sudo: required
 
 python:
-    - "3.6"
+    - "3.8.0"
 
 service:
     - docker
 
 before_install:
+    - pip install --upgrade pip
     - pip install docker-compose
 
 # if travis return other than 0 means error in script
