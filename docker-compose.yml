@@ -1,0 +1,23 @@
+version: '3.7'
+services:
+    db:
+        image: postgres
+        volumes:
+             - db_data:/var/lib/postgresql/data
+        environment:          
+            - POSTGRES_DB=DockerTest_db
+            - POSTGRES_USER=soumya
+            - POSTGRES_PASSWORD=nextapp
+    django:
+        build: 
+            context: .
+            dockerfile: Dockerfile.dev 
+        ports: 
+            - "8000:8000"  
+        volumes:
+            - .:/app    
+        command: python manage.py runserver 0.0.0.0:8000
+        depends_on: 
+            - db
+volumes:
+    db_data:

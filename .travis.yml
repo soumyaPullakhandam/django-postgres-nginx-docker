@@ -1,0 +1,28 @@
+sudo: required
+
+service:
+    - docker
+
+before_install:
+    - docker build -t soumya9v/django-postgres-nginx-docker -f Dockerfile.dev .
+
+# if travis return other than 0 means error in script
+script:
+    - docker run -e CI=true soumya9v/django-postgres-nginx-docker python manage.py migrate  -- --coverage
+
+# after_success:
+#     - docker build -t soumya9v/multi-client  ./client
+#     - docker build -t soumya9v/multi-nginx  ./nginx
+#     - docker build -t soumya9v/multi-server  ./server
+#     - docker build -t soumya9v/multi-worker  ./worker
+
+#     # Log in to the docker CLI
+#     # Go to travis-ci --> project --> settings
+#     # Environment Variables --> provide DOCKER_ID and DOCKER_PASSWORD
+#     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+
+#     # Take those images and push to docker hub
+#     - docker push soumya9v/multi-client
+#     - docker push soumya9v/multi-nginx
+#     - docker push soumya9v/multi-server
+#     - docker push soumya9v/multi-worker
