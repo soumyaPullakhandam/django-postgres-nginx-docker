@@ -8,7 +8,7 @@ before_install:
 
 # if travis return other than 0 means error in script
 script:
-    - docker run -e CI=true soumya9v/django-postgres-nginx-docker python manage.py test  -- --coverage
+    - docker run -e CI=true soumya9v/django-postgres-nginx-docker python manage.py test
 
 after_success:
     # - docker build -t soumya9v/multi-client  .
