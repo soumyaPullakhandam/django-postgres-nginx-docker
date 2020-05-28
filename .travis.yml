@@ -10,6 +10,7 @@ before_install:
 script:
     - docker run -e CI=true soumya9v/django-postgres-nginx-docker python manage.py migrate  -- --coverage
 
+    
 # after_success:
 #     - docker build -t soumya9v/multi-client  ./client
 #     - docker build -t soumya9v/multi-nginx  ./nginx
