@@ -1,16 +1,19 @@
 sudo: required
 
+python:
+    - "3.6"
+
 service:
     - docker
 
 before_install:
-    - docker build -t soumya9v/django-postgres-nginx-docker -f Dockerfile.dev .
+    - pip install docker-compose
 
 # if travis return other than 0 means error in script
 script:
-    - docker run -e CI=true soumya9v/django-postgres-nginx-docker python manage.py migrate  -- --coverage
+    - docker-compose run django sh -c "python manage.py test" 
 
-    
+
 # after_success:
 #     - docker build -t soumya9v/multi-client  ./client
 #     - docker build -t soumya9v/multi-nginx  ./nginx
